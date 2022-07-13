@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Key, useState } from "react";
 import "./Common.css";
 import DatePicker, { registerLocale } from "react-datepicker";
 import ja from "date-fns/locale/ja";
@@ -7,13 +7,26 @@ import axios from "axios";
 import addDays from "date-fns/addDays";
 import Result from "./Result";
 
+export type Plan = {
+  plan_id: Key;
+  image_url: string;
+  course_name: string;
+  duration: string;
+  price: string;
+  evaluation: string;
+  prefecture: string;
+  plan_name: string;
+  caption: string;
+  reserve_url_pc: string;
+};
+
 const Home = () => {
   const Today = new Date();
   const [date, setDate] = useState<Date>(Today);
   const [budget, setBudget] = useState<number>(8000);
   const [departure, setDeparture] = useState<number>(1);
   const [duration, setDuration] = useState<number>(60);
-  const [plans, setPlans] = useState([]);
+  const [plans, setPlans] = useState<Plan[]>([]);
   registerLocale("ja", ja);
 
   const onFormSubmit = async (event: { preventDefault: () => void }) => {

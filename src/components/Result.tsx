@@ -1,7 +1,12 @@
 import "./Common.css";
+import { Plan } from "./Home";
 
-const Result: React.FC<any> = ({ plans }) => {
-  const result = plans.map((plan: any) => {
+type Props = {
+  plans: Plan[];
+};
+
+const Result: React.FC<Props> = ({ plans }) => {
+  const result = plans.map((plan: Plan) => {
     return (
       <div className="item" key={plan.plan_id}>
         <div className="image">
