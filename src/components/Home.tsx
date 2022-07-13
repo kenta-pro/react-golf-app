@@ -5,6 +5,7 @@ import ja from "date-fns/locale/ja";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import addDays from "date-fns/addDays";
+import Result from "./Result";
 
 const Home = () => {
   const Today = new Date();
@@ -12,6 +13,7 @@ const Home = () => {
   const [budget, setBudget] = useState<number>(8000);
   const [departure, setDeparture] = useState<number>(1);
   const [duration, setDuration] = useState<number>(60);
+  const [plans, setPlans] = useState([]);
   registerLocale("ja", ja);
 
   const onFormSubmit = async (event: { preventDefault: () => void }) => {
@@ -28,6 +30,7 @@ const Home = () => {
         },
       }
     );
+    setPlans(response.data.plans);
     console.log(date, budget, departure, duration);
     console.log(response);
   };
@@ -101,6 +104,7 @@ const Home = () => {
             </button>
           </div>
         </form>
+        <Result plans={plans} />
       </div>
     </div>
   );
