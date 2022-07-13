@@ -27,25 +27,32 @@ const Home = () => {
   const [departure, setDeparture] = useState<number>(1);
   const [duration, setDuration] = useState<number>(60);
   const [plans, setPlans] = useState<Plan[]>([]);
+  const [plansCount, setPlansCount] = useState<number | undefined>(undefined);
+  const [hasError, setHasError] = useState<boolean>(false);
   registerLocale("ja", ja);
 
   const onFormSubmit = async (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-
-    const response = await axios.get(
-      "https://l1kwik11ne.execute-api.ap-northeast-1.amazonaws.com/production/golf-courses",
-      {
-        params: {
-          date: addDays(date, 14),
-          budget: budget,
-          departure: departure,
-          duration: duration,
-        },
-      }
-    );
-    setPlans(response.data.plans);
-    console.log(date, budget, departure, duration);
-    console.log(response);
+    try {
+      event.preventDefault();
+      const response = await axios.get(
+        "https://l1kwik11ne.execute-api.ap-northeast-1.amazonaws.com/production/golf-courses",
+        {
+          params: {
+            date: addDays(date, 14),
+            budget: budget,
+            departure: departure,
+            duration: duration,
+          },
+        }
+      );
+      setPlans(response.data.plans);
+      setPlansCount(response.data.plansCount);
+      // console.log(date, budget, departure, duration);
+      // console.log(response);
+    } catch (e) {
+      console.log(e);
+      setHasError(true);
+    }
   };
 
   return (
@@ -117,7 +124,7 @@ const Home = () => {
             </button>
           </div>
         </form>
-        <Result plans={plans} />
+        <Result plans={plans} plansCount={plansCount} error={hasError} />
       </div>
     </div>
   );
