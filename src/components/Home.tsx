@@ -38,7 +38,7 @@ const Home = () => {
       event.preventDefault();
       setLoading(true);
       const response = await axios.get(
-        "https://main.di6dmk3t3fxh6.amplifyapp.com/golf-course",
+        "https://ub5vzkcrj2.execute-api.ap-northeast-1.amazonaws.com/production/golf-course",
         {
           params: {
             date: addDays(date, 14),
