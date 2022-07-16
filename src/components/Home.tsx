@@ -7,6 +7,7 @@ import axios from "axios";
 import addDays from "date-fns/addDays";
 import Result from "./Result";
 import Loading from "./Loading";
+import format from "date-fns/format";
 
 export type Plan = {
   plan_id: Key;
@@ -41,7 +42,7 @@ const Home = () => {
         "https://ub5vzkcrj2.execute-api.ap-northeast-1.amazonaws.com/production/golf-course",
         {
           params: {
-            date: addDays(date, 14),
+            date: format(date, "yyyyMMdd"),
             budget: budget,
             departure: departure,
             duration: duration,
